@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Devnovate - Sponsor Hub</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+    />
+    <style>
+      .gradient-text {
+        font-weight: bold;
+        background: linear-gradient(45deg, #ff7e95, #ff9a76, #fff700, #6effb5);
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+        animation: gradientText 8s ease infinite;
+      }
+      @keyframes gradientText {
+        0%,
+        100% {
+          background-position: 0% 50%;
+        }
+        50% {
+          background-position: 100% 50%;
+        }
+      }
+      body {
+        background: linear-gradient(45deg, #a29bfe, #ff9aa2, #b5f5ec, #ffdfba);
+        background-size: 400% 400%;
+        animation: gradientBG 15s ease infinite;
+        min-height: 100vh;
+      }
+      @keyframes gradientBG {
+        0%,
+        100% {
+          background-position: 0% 0%;
+        }
+        50% {
+          background-position: 100% 100%;
+        }
+      }
+      .sponsor-card:hover {
+        transform: scale(1.03);
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+      }
+    </style>
+  </head>
+  <body class="text-gray-800">
+    <!-- Navbar -->
+    <nav class="bg-white shadow-md fixed top-0 left-0 right-0 z-50">
+      <div
+        class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center"
+      >
+        <div class="text-xl font-bold text-gray-900">Devnovate</div>
+        <div class="space-x-6">
+          <a href="{% url 'index' %}" class="text-gray-600 hover:text-blue-600"
+            >Home</a
+          >
+          <a
+            href="{% url 'sponsor_front' %}"
+            class="text-blue-600 font-semibold"
+            >Sponsor Hub</a
+          >
+        </div>
+        <div class="flex items-center space-x-4">
+          <span class="text-gray-600">Welcome, {{ user.username }}</span>
+          <a
+            href="{% url 'logout' %}"
+            class="text-red-500 hover:text-red-700 flex items-center"
+          >
+            <i class="fas fa-sign-out-alt mr-1"></i>Logout
+          </a>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Page Content -->
+    <div class="pt-32 px-6 max-w-7xl mx-auto">
+      {% if messages %}
+      <div class="mb-6">
+        {% for message in messages %}
+        <div class="bg-green-100 text-green-800 p-4 rounded shadow">
+          {{ message }}
+        </div>
+        {% endfor %}
+      </div>
+      {% endif %}
+
+      <h1 class="gradient-text text-5xl text-center mb-1">
+        Sponsor Hub - Devnovate
+      </h1>
+      <p class="text-center text-gray-600 mb-8">
+        Power Hackathons, Gain Visibility, Connect Globally
+      </p>
+
+      <!-- Create and Sponsor Event Heading -->
+      <h2 class="gradient-text text-3xl mb-4 text-center">
+        Create and Sponsor Event
+      </h2>
+
+      <!-- Dashboard Cards -->
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
+        <!-- Sponsorship Summary -->
+        <div class="sponsor-card bg-white p-6 rounded-lg shadow-md">
+          <h2 class="text-xl font-semibold mb-2">
+            <i class="fas fa-hand-holding-usd mr-2"></i>Sponsorship Status
+          </h2>
+          {% if sponsorships.exists %}
+          <p>Events Sponsored: {{ events_count }}</p>
+          <p>Projects Viewed: {{ projects_count }}</p>
+          {% else %}
+          <p>No active sponsorships.</p>
+          {% endif %}
+        </div>
+
+        <!-- Create Event -->
+        <div class="sponsor-card bg-white p-6 rounded-lg shadow-md">
+          <h3 class="text-lg font-semibold mb-2">
+            <i class="fas fa-calendar-plus mr-2"></i>Create Event
+          </h3>
+          <form method="POST" action="{% url 'create_event' %}">
+            {% csrf_token %} {{ event_form.as_p }}
+            <button
+              type="submit"
+              class="w-full mt-4 bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded"
+            >
+              Create
+            </button>
+          </form>
+        </div>
+
+        <!-- Create Sponsorship -->
+        <div class="sponsor-card bg-white p-6 rounded-lg shadow-md">
+          <h3 class="text-lg font-semibold mb-2">
+            <i class="fas fa-plus-circle mr-2"></i>Create Sponsorship
+          </h3>
+          {% if events %}
+          <p class="text-sm mb-2 text-gray-600">
+            Available Events: {{ events.count }}
+          </p>
+          {% else %}
+          <p class="text-sm text-red-500 mb-2">
+            No events available. Create one first.
+          </p>
+          {% endif %}
+          <form method="POST" action="{% url 'create_sponsorship' %}">
+            {% csrf_token %} {{ sponsorship_form.as_p }}
+            <button
+              type="submit"
+              class="w-full mt-4 bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded"
+            >
+              Sponsor
+            </button>
+          </form>
+        </div>
+      </div>
+
+      <!-- Sponsor Features Row (Tiers, Support Events, Sponsor Spotlight) -->
+      <div class="grid md:grid-cols-3 gap-6 mb-12">
+        <!-- Sponsorship Tiers -->
+        <div class="sponsor-card bg-white p-6 rounded-lg shadow-md">
+          <h3 class="text-lg font-semibold mb-2">
+            <i class="fas fa-list-alt mr-2"></i>Tiers
+          </h3>
+          <ul class="text-sm text-gray-700 space-y-1">
+            <li><strong>Gold ($5000):</strong> Website logo + mentorship</li>
+            <li>
+              <strong>Silver ($2500):</strong> Email logo + event mentions
+            </li>
+            <li><strong>Bronze ($1000):</strong> Credits mention</li>
+          </ul>
+        </div>
+
+        <!-- Support Events -->
+        <div class="sponsor-card bg-white p-6 rounded-lg shadow-md">
+          <h3 class="text-lg font-semibold mb-2">
+            <i class="fas fa-calendar-alt mr-2"></i>Support Events
+          </h3>
+          {% if events %}
+          <ul class="space-y-2 text-sm text-gray-700">
+            {% for event in events %}
+            <li>
+              {{ event.name }} ({{ event.date|date:"Y-m-d" }}) -
+              <a
+                href="{% url 'create_sponsorship' %}"
+                class="text-blue-500 hover:underline"
+                >Sponsor</a
+              >
+            </li>
+            {% endfor %}
+          </ul>
+          {% else %}
+          <p>No upcoming events.</p>
+          {% endif %}
+        </div>
+
+        <!-- Sponsor Spotlight -->
+        <div class="sponsor-card bg-white p-6 rounded-lg shadow-md">
+          <h3 class="text-lg font-semibold mb-2">
+            <i class="fas fa-star mr-2"></i>Sponsor Spotlight
+          </h3>
+          {% if request.user.profile.logo %}
+          <img
+            src="{{ request.user.profile.logo.url }}"
+            class="w-24 h-24 object-contain mb-2 border rounded"
+            alt="Logo"
+          />
+          <p class="text-sm text-gray-500">Current logo</p>
+          {% else %}
+          <p class="text-sm text-gray-500 mb-2">No logo uploaded</p>
+          {% endif %}
+          <form
+            method="POST"
+            enctype="multipart/form-data"
+            action="{% url 'update_sponsor_profile' %}"
+          >
+            {% csrf_token %} {{ profile_form.logo }}
+            <button
+              type="submit"
+              class="w-full mt-3 bg-yellow-500 hover:bg-yellow-600 text-white px-4 py-2 rounded"
+            >
+              Upload Logo
+            </button>
+          </form>
+        </div>
+      </div>
+
+      <!-- Community & Support Row -->
+      <div class="mb-20">
+        <h2 class="gradient-text text-3xl mb-4 text-center">
+          🚀 Empowering Connections & Support for Sponsors
+        </h2>
+        <div class="grid md:grid-cols-3 gap-6">
+          <div class="sponsor-card bg-white p-6 rounded-lg shadow-md">
+            <h3 class="font-semibold mb-1">
+              <i class="fas fa-users mr-2"></i>Community Forums
+            </h3>
+            <p class="text-sm text-gray-600 mb-2">
+              Network with other innovators and engage in discussions.
+            </p>
+            <a
+              href="{% url 'community_forums' %}"
+              class="text-blue-600 hover:underline text-sm"
+              >Join Forums</a
+            >
+          </div>
+
+          <!-- 24/7 Support -->
+          <div class="sponsor-card bg-white p-6 rounded-lg shadow-md">
+            <h3 class="font-semibold mb-1">
+              <i class="fas fa-headset mr-2"></i>24/7 Support
+            </h3>
+            <p class="text-sm text-gray-600 mb-2">
+              Need assistance? Our support team is always available.
+            </p>
+            <a
+              href="{% url 'support' %}"
+              class="text-blue-600 hover:underline text-sm"
+              >Contact Support</a
+            >
+          </div>
+
+          <!-- Networking Hub -->
+          <div class="sponsor-card bg-white p-6 rounded-lg shadow-md">
+            <h3 class="font-semibold mb-1">
+              <i class="fas fa-handshake mr-2"></i>Networking Hub
+            </h3>
+            <p class="text-sm text-gray-600 mb-2">
+              Connect with sponsors and industry leaders.
+            </p>
+            <a
+              href="{% url 'sponsor_networking' %}"
+              class="text-blue-600 hover:underline text-sm"
+              >Start Networking</a
+            >
+          </div>
+        </div>
+
+        <!-- Projects & Teams -->
+
+        <h2 class="gradient-text text-3xl mt-10 mb-4 text-center">
+          Projects & Teams
+        </h2>
+        <!-- Added mt-12 -->
+        <div class="grid md:grid-cols-2 gap-8">
+          <!-- Projects -->
+          <div>
+            <h3 class="text-xl font-semibold mb-2">Projects</h3>
+            {% if projects %}
+            <ul class="space-y-3">
+                {% for project in projects %}
+                <li class="bg-white p-4 rounded shadow">
+                    <strong>{{ project.title }}</strong> by {{ project.team.name }}<br/>
+                    <p class="text-sm text-gray-600 mt-1">{{ project.description|truncatewords:20 }}</p>
+                </li>
+                {% endfor %}
+            </ul>
+            {% else %}
+            <p class="text-gray-600">No projects yet.</p>
+            {% endif %}
+          </div>
+          <!-- Teams -->
+          <div>
+            <h3 class="text-xl font-semibold mb-2">Teams</h3>
+            {% if teams %}
+            <ul class="space-y-2 text-gray-800">
+              {% for team in teams %}
+              <ul class="space-y-2 text-gray-800">
+                {% for team in teams %}
+                    <li><strong>{{ team.name }}</strong> – Members: {{ team.members.count }}</li>
+                {% endfor %}
+            </ul>
+              {% endfor %}
+            </ul>
+            {% else %}
+            <p class="text-gray-600">No teams registered yet.</p>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white py-6 mt-auto">
+      <div
+        class="max-w-7xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0"
+      >
+        <p>&copy; 2025 Devnovate. All rights reserved.</p>
+        <div class="flex space-x-4">
+          <a href="#" class="hover:text-yellow-400"
+            ><i class="fab fa-twitter"></i
+          ></a>
+          <a href="#" class="hover:text-blue-400"
+            ><i class="fab fa-facebook"></i
+          ></a>
+          <a href="#" class="hover:text-pink-400"
+            ><i class="fab fa-instagram"></i
+          ></a>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+    <title>Devnovate | Registration Dashboard</title>
+    <style>
+        /* General Styling */
+        body {
+            margin: 0;
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f4f9;
+            color: #333;
+        }
+
+        /* Header Styling */
+        header {
+            background: linear-gradient(to right, rgba(139, 0, 0, 1), rgba(255, 105, 180, 1));
+            color: white;
+            text-align: center;
+            padding: 10px 15px;
+            font-size: 20px;
+            font-weight: bold;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .navbar {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 20px;
+        }
+        .navbar > div {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+        .navbar div a {
+            margin-left: 0;
+            color: white;
+            text-decoration: none;
+        }
+        .navbar div a:hover {
+            text-decoration: underline;
+        }
+
+        /* Main Content */
+        main {
+            max-width: 1200px;
+            margin: 20px auto;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .dashboard-header h1 {
+            font-size: 28px;
+            margin-bottom: 15px;
+        }
+
+        .dashboard-header h2 {
+            font-size: 18px;
+            color: #8b0000;
+            text-align: left;
+        }
+
+        .dashboard-header h3 {
+            font-size: 18px;
+            color: #333;
+            text-align: center;
+            margin-top: 10px;
+        }
+
+        .registeration-btn {
+            background-color: #007BFF;
+            color: white;
+            padding: 12px 30px;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        .registeration-btn:hover {
+            background-color: rgb(179, 0, 9);
+        }
+        /* Updated Background Gradient */
+body {
+    margin: 0;
+    font-family: 'Arial', sans-serif;
+    background: linear-gradient(to right, #d0f0fd, #f4f4f9); /* ✅ Light Blue Gradient */
+    color: #333;
+}
+
+    </style>
+</head>
+<body>
+    <header>
+        <div class="navbar">
+            <div>
+                <span>Welcome, {{ user.username }}</span>
+                <a href="{% url 'about' %}">About Us</a>
+                <a href="{% url 'Contact' %}">Contact Us</a>
+            </div>
+            <a href="{% url 'logout' %}" class="text-red-500 hover:text-red-700">
+                <i class="fas fa-sign-out-alt mr-1"></i>Logout
+            </a>
+        </div>        
+    </header>
+
+    <main>
+        {% if messages %}
+            <div class="alert alert-success mt-3">
+                {% for message in messages %}
+                    {{ message }}
+                {% endfor %}
+            </div>
+        {% endif %}
+
+        <div class="dashboard-header">
+            <h1>Participants Dashboard</h1>
+            <h2>Live Participants: <span id="participant-count">{{ total_participants }}</span></h2>
+            <h3>View Event Details</h3>
+        </div>
+        
+        <div class="container mt-4 p-4 border border-dark rounded" style="background-color: #ffffff;">
+            <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+                {% for event in event_slots %}
+                <div class="col">
+                    <div class="card shadow-sm">
+                        <svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg"
+                            role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice">
+                            <title>{{ event.name }}</title>
+                            <rect width="100%" height="100%" fill="#55595c"></rect>
+                            <text x="50%" y="50%" fill="#eceeef" dy=".3em">{{ event.name }}</text>
+                        </svg>
+                        <div class="card-body">
+                            <p class="card-text">{{ event.description }}</p>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <small class="text-body-secondary">{{ event.time_remaining }}</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        
+            <!-- Moved the button inside the container to align it with the event details -->
+            <div class="text-center mt-4">
+                <a href="{% url 'participantform' %}" class="registeration-btn" id="registeration-btn">
+                    REGISTERATION
+                </a>
+            </div>
+        </div>
+        
+    </main>
+
+    <footer style="background: linear-gradient(to right, rgba(139, 0, 0, 1), rgba(255, 105, 180, 1));
+               color: white;
+               text-align: center;
+               padding: 10px 15px;
+               font-size: 14px;
+               font-weight: bold;
+               box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.1);
+               margin-top: 40px;">
+        <a href="{% url 'FAQ' %}" style="color: white; text-decoration: none;">FAQ</a>
+    </footer>
+</body>
+</html>

@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Devnovate - Role Selection</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <style>
+    /* Gradient Background */
+    body {
+      background: linear-gradient(45deg, #a29bfe, #ff9aa2, #b5f5ec, #ffdfba);
+      background-size: 400% 400%;
+      animation: gradientBG 15s ease infinite;
+      min-height: 100vh;
+      position: relative;
+    }
+    @keyframes gradientBG {
+      0% { background-position: 0% 0%; }
+      50% { background-position: 100% 100%; }
+      100% { background-position: 0% 0%; }
+    }
+
+    /* Gradient Text */
+    .gradient-text {
+      font-family: 'Arial', sans-serif;
+      font-weight: bold;
+      background: linear-gradient(45deg, #ff7e95, #ff9a76, #fff700, #6effb5);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      animation: gradientText 8s ease infinite;
+    }
+    @keyframes gradientText {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    /* Video Styling */
+    #bgvi-video, #bgv1-video {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      z-index: 0;
+    }
+    #bgv1-video {
+      display: none;
+    }
+
+    /* Header Styling */
+    #header {
+      opacity: 0;
+      transition: opacity 1s ease-in-out;
+      position: absolute;
+      top: 0;
+      width: 100%;
+      background: linear-gradient(to right, #ff7e95, #ff9aa2);
+      padding: 1rem;
+      text-align: center;
+      font-size: 2rem;
+      font-family: 'Arial', sans-serif;
+      color: white;
+      z-index: 10;
+      border-bottom: 4px solid rgba(255, 255, 255, 0.2);
+    }
+
+    /* Main Content */
+    #main-content {
+      opacity: 0;
+      transition: opacity 1s ease-in-out;
+      position: relative;
+      z-index: 10;
+      margin-top: 5rem;
+      padding: 1rem;
+      max-width: 4xl;
+    }
+
+    /* Role Cards Styling */
+    .role-card {
+      background-color: white;
+      border-radius: 0.75rem;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      padding: 1.5rem;
+      text-align: center;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .role-card:hover {
+      transform: scale(1.03);
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+    }
+
+    /* Smooth Scroll Behavior */
+    html {
+      scroll-behavior: smooth;
+    }
+  </style>
+</head>
+<body class="flex items-center justify-center relative">
+  <video id="bgvi-video" autoplay muted class="absolute inset-0 w-full h-full object-cover z-0">
+    <source src="/static/images/bgvi.mp4" type="video/mp4" />
+    Your browser does not support the video tag.
+  </video>
+
+  <video id="bgv1-video" autoplay muted loop class="absolute inset-0 w-full h-full object-cover z-0">
+    <source src="/static/images/bgv1.mp4" type="video/mp4" />
+    Your browser does not support the video tag.
+  </video>
+
+  <div id="header" class="gradient-text">Welcome To Devnovate</div>
+
+  <div id="main-content" class="relative z-10 w-full max-w-4xl px-5">
+    <div class="mx-auto mb-20 max-w-md rounded-full bg-white bg-opacity-80 px-8 py-4 text-center text-xl font-medium shadow-md">
+      Select your role to continue
+    </div>
+
+    <div class="flex flex-col sm:flex-row justify-center items-center gap-8">
+      <a href="/admin/" class="role-card bg-blue-500 hover:bg-blue-600 text-white rounded-xl w-40 h-40 flex flex-col items-center justify-center transition duration-300 ease-in-out">
+        <i class="fas fa-user-shield text-3xl mb-3"></i>
+        <span class="text-lg font-semibold">Admin</span>
+      </a>
+      <a href="{% url 'register' %}?role=SPONSOR" class="role-card bg-green-500 hover:bg-green-600 text-white rounded-xl w-40 h-40 flex flex-col items-center justify-center transition duration-300 ease-in-out">
+        <i class="fas fa-hand-holding-usd text-3xl mb-3"></i>
+        <span class="text-lg font-semibold">Sponsor</span>
+      </a>
+      <a href="{% url 'register' %}?role=PARTICIPANT" class="role-card bg-purple-500 hover:bg-purple-600 text-white rounded-xl w-40 h-40 flex flex-col items-center justify-center transition duration-300 ease-in-out">
+        <i class="fas fa-users text-3xl mb-3"></i>
+        <span class="text-lg font-semibold">Participant</span>
+      </a>
+
+    </div>
+  </div>
+
+  <script>
+    const bgviVideo = document.getElementById('bgvi-video');
+    const bgv1Video = document.getElementById('bgv1-video');
+    const mainContent = document.getElementById('main-content');
+    const header = document.getElementById('header');
+
+    bgviVideo.addEventListener('ended', () => {
+      bgviVideo.style.display = 'none';
+      bgv1Video.style.display = 'block';
+      mainContent.style.opacity = 1;
+      header.style.opacity = 1;
+    });
+  </script>
+</body>
+</html>

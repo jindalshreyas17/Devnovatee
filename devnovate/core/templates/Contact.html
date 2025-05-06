@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Contact Us</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"/>
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: Arial, sans-serif;
+    }
+
+    body {
+      position: relative;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      overflow: hidden;
+      background: url('https://i.pinimg.com/736x/21/fd/be/21fdbecc0304433ef38dd5efce396229.jpg') no-repeat center center fixed;
+      background-size: cover;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 100%;
+      width: 100%;
+      background: rgba(0, 0, 0, 0.4); /* Dark overlay */
+      z-index: 0;
+    }
+
+    .contact-container {
+      display: flex;
+      max-width: 900px;
+      background: rgba(255, 255, 255, 0.92);
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+      z-index: 1;
+    }
+
+    .contact-info, .contact-form {
+      flex: 1;
+      padding: 20px;
+    }
+
+    .contact-info ul {
+      list-style: none;
+      padding-top: 10px;
+    }
+
+    .contact-info li {
+      display: flex;
+      align-items: center;
+      margin: 10px 0;
+      font-size: 16px;
+    }
+
+    .contact-info li i {
+      margin-right: 10px;
+      color: #333;
+    }
+
+    .contact-form form {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .contact-form label {
+      margin-top: 10px;
+      font-weight: bold;
+    }
+
+    .contact-form input,
+    .contact-form textarea {
+      width: 100%;
+      padding: 8px;
+      margin-top: 5px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+
+    .contact-form button {
+      margin-top: 15px;
+      background: #007BFF;
+      color: white;
+      padding: 10px;
+      border: none;
+      cursor: pointer;
+      border-radius: 5px;
+      font-size: 16px;
+    }
+
+    .contact-form button:hover {
+      background: #0056b3;
+    }
+
+    @media (max-width: 768px) {
+      .contact-container {
+        flex-direction: column;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="contact-container">
+    <div class="contact-info">
+      <h2>Contact Us</h2>
+      <p>Reach out to Devnovate India for hackathon details, sponsorships, and collaborations.</p>
+      <ul>
+        <li><i class="fas fa-map-marker-alt"></i> Devnovate India HQ, Bengaluru, Karnataka, India</li>
+        <li><i class="fas fa-phone"></i> +91 98765 43210</li>
+        <li><i class="fas fa-envelope"></i> support@devnovate.in</li>
+        <li><i class="fas fa-home"></i>  <a href="{% url 'participant_dashboard' %}">Back to Home</a></li>
+      </ul>
+    </div>
+    
+   
+
+    <div class="contact-form">
+      <h2>Send a Message</h2>
+      <form>
+        <label for="name">Full Name</label>
+        <input type="text" id="name" placeholder="Your Name" />
+
+        <label for="email">Email</label>
+        <input type="email" id="email" placeholder="Your Email" />
+
+        <label for="message">Message</label>
+        <textarea id="message" placeholder="Type your message..."></textarea>
+
+        <button type="submit">Send</button>
+      </form>
+    </div>
+  </div>
+
+</body>
+</html>

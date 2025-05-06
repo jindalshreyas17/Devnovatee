@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>FAQ</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    body {
+      background-image: url('https://images.unsplash.com/photo-1555066931-4365d14bab8c');
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+    }
+    .faq-container {
+      background-color: rgba(255, 255, 255, 0.3); /* More transparent */
+      backdrop-filter: blur(10px); /* Blur effect */
+    }
+    summary::-webkit-details-marker {
+      display: none;
+    }
+  </style>
+</head>
+<body class="min-h-screen flex items-center justify-center p-6">
+  <div class="faq-container w-full max-w-3xl p-8 rounded-lg shadow-lg">
+    <h1 class="text-3xl font-bold text-center text-white mb-6 drop-shadow-lg">Frequently Asked Questions</h1>
+
+    <div class="space-y-4">
+      <!-- FAQs for Participants -->
+      <h1 class="text-xl font-semibold text-center text-white mt-6 border-b border-white pb-2">For Participants</h1>
+
+      <details class="bg-white/30 backdrop-blur-sm rounded-lg p-4 cursor-pointer transition-all duration-300 open:bg-blue-100/40">
+        <summary class="font-semibold text-lg text-white">How do I register for Devnovate?</summary>
+        <p class="mt-2 text-white">
+          You can register through our official platform. Simply sign up, choose your role, and follow the steps to complete your registration.
+        </p>
+      </details>
+
+      <details class="bg-white/30 backdrop-blur-sm rounded-lg p-4 cursor-pointer transition-all duration-300 open:bg-blue-100/40">
+        <summary class="font-semibold text-lg text-white">What are the benefits of participating?</summary>
+        <p class="mt-2 text-white">
+          Participants gain hands-on experience, mentorship, networking opportunities, and a chance to win prizes and internships.
+        </p>
+      </details>
+
+      <details class="bg-white/30 backdrop-blur-sm rounded-lg p-4 cursor-pointer transition-all duration-300 open:bg-blue-100/40">
+        <summary class="font-semibold text-lg text-white">Do I need to have coding experience?</summary>
+        <p class="mt-2 text-white">
+          No! Whether you're a beginner or an expert, Devnovate welcomes everyone to collaborate and create innovative solutions.
+        </p>
+      </details>
+
+      <details class="bg-white/30 backdrop-blur-sm rounded-lg p-4 cursor-pointer transition-all duration-300 open:bg-blue-100/40">
+        <summary class="font-semibold text-lg text-white">Can I work on my own idea?</summary>
+        <p class="mt-2 text-white">
+          Yes! You can either work on your own project or choose a challenge provided by Devnovate or sponsors.
+        </p>
+      </details>
+
+      <details class="bg-white/30 backdrop-blur-sm rounded-lg p-4 cursor-pointer transition-all duration-300 open:bg-blue-100/40">
+        <summary class="font-semibold text-lg text-white">What happens after the hackathon?</summary>
+        <p class="mt-2 text-white">
+          Winning teams may receive funding, mentorship, or internship opportunities. Many projects continue development beyond Devnovate.
+        </p>
+      </details>
+
+      <!-- FAQs for Sponsors -->
+      <h1 class="text-xl font-semibold text-center text-white mt-6 border-b border-white pb-2">For Sponsors</h1>
+
+      <details class="bg-white/30 backdrop-blur-sm rounded-lg p-4 cursor-pointer transition-all duration-300 open:bg-green-100/40">
+        <summary class="font-semibold text-lg text-white">Why should I sponsor Devnovate?</summary>
+        <p class="mt-2 text-white">
+          Sponsoring Devnovate provides brand exposure, access to emerging talent, and direct collaboration on innovative projects.
+        </p>
+      </details>
+
+      <details class="bg-white/30 backdrop-blur-sm rounded-lg p-4 cursor-pointer transition-all duration-300 open:bg-green-100/40">
+        <summary class="font-semibold text-lg text-white">What sponsorship packages are available?</summary>
+        <p class="mt-2 text-white">
+          We offer multiple sponsorship tiers, including branding opportunities, networking access, and the ability to introduce challenge statements.
+        </p>
+      </details>
+
+      <details class="bg-white/30 backdrop-blur-sm rounded-lg p-4 cursor-pointer transition-all duration-300 open:bg-green-100/40">
+        <summary class="font-semibold text-lg text-white">Can sponsors provide hackathon challenges?</summary>
+        <p class="mt-2 text-white">
+          Absolutely! Sponsors can introduce real-world problem statements that participants work on during the event.
+        </p>
+      </details>
+
+      <details class="bg-white/30 backdrop-blur-sm rounded-lg p-4 cursor-pointer transition-all duration-300 open:bg-green-100/40">
+        <summary class="font-semibold text-lg text-white">How do sponsors interact with participants?</summary>
+        <p class="mt-2 text-white">
+          Sponsors can mentor teams, host workshops, and directly network with participants to find top talent.
+        </p>
+      </details>
+
+      <details class="bg-white/30 backdrop-blur-sm rounded-lg p-4 cursor-pointer transition-all duration-300 open:bg-green-100/40">
+        <summary class="font-semibold text-lg text-white">Are sponsors involved in judging?</summary>
+        <p class="mt-2 text-white">
+          Yes! Sponsors can be part of the judging panel, mentor teams, and offer special prizes or job opportunities.
+        </p>
+      </details>
+    </div>
+
+    <div class="text-center mt-8">
+      <a href="{% url 'participant_dashboard' %}" class="text-white bg-blue-600 hover:bg-blue-700 px-6 py-2 rounded shadow-md transition">Back to Home</a>
+    </div>
+  </div>
+</body>
+</html>
